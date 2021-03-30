@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "com.udemyCourse.ionicAngular",
   "appName": "ionic-angular-course",
   "bundledWebRuntime": false,
   "npmClient": "npm",
@@ -9,5 +9,6 @@
       "launchShowDuration": 0
     }
   },
-  "cordova": {}
+  "cordova": {},
+  "linuxAndroidStudioPath": "/bin/android-studio"
 }

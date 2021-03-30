@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="m1"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>bookings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row *ngIf="isLoading">
+      <ion-col size-md="6" offset-md="3">
+        <div class="ion-text-center">
+          <ion-spinner color="primary"></ion-spinner>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col
+        size-md="6"
+        offset-md="3"
+        class="ion-text-center"
+        *ngIf="!isLoading && (!(loadedBookings | async)||(loadedBookings | async).length === 0)"
+      >
+        <p>No Bookings found!</p>
+      </ion-col>
+      <ion-col size-md="6" offset-md="3" *ngIf="!isLoading && ((loadedBookings | async).length > 0)">
+        <ion-list>
+          <ion-item-sliding *ngFor="let booking of loadedBookings | async" #itemSliding>
+            <ion-item>
+              <ion-avatar slot="start">
+                <img [src]="booking.placeImg" />
+              </ion-avatar>
+
+              <ion-label>
+                <h5>{{booking.placeTitle}}</h5>
+                <p>
+                  From {{booking.bookedFrom | date}} to {{booking.bookedTo | date}} with {{booking.guestNumber}}
+                  guest(s)
+                </p>
+              </ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option color="danger" (click)="onCancelBooking(booking.id, itemSliding)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
